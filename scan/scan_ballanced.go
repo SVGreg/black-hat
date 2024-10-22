@@ -19,7 +19,7 @@ func worker(host string, portschan, reschan chan int) {
 }
 
 func scanBallanced(host string, ports []int, width int) {
-	fmt.Printf("Scanning %s, ports:\n", host)
+	fmt.Printf("Ballanced scanning %s, ports:\n", host)
 
 	portschan := make(chan int, width)
 	reschan := make(chan int)
@@ -47,7 +47,12 @@ func scanBallanced(host string, ports []int, width int) {
 
 	sort.Ints(openports)
 
-	for _, port := range openports {
-		fmt.Printf("  %d\topen\n", port)
+	if len(openports) == 0 {
+		fmt.Println("  - no open ports")
+	} else {
+		for _, port := range openports {
+			fmt.Printf("  - %d\topen\n", port)
+		}
 	}
+	fmt.Println("")
 }

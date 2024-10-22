@@ -9,7 +9,7 @@ import (
 func scanFast(host string, ports []int) {
 	var wg sync.WaitGroup
 
-	fmt.Printf("Scanning %s, ports:\n", host)
+	fmt.Printf("Fast scanning %s, ports:\n", host)
 	for _, port := range ports {
 		wg.Add(1)
 
@@ -18,9 +18,9 @@ func scanFast(host string, ports []int) {
 
 			_, err := net.Dial("tcp", fmt.Sprintf("%s:%d", host, port))
 			if err == nil {
-				fmt.Printf("    - %d\tsuccess\n", port)
+				fmt.Printf("  - %d\topen\n", port)
 			} else {
-				fmt.Printf("    - %d\tfailed\n", port)
+				fmt.Printf("  - %d\tclosed\n", port)
 			}
 		}(host, port)
 	}
